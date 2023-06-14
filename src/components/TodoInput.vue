@@ -1,8 +1,8 @@
 <template>
   <div>
-    <label for="todo-input"></label>
-    <input id="todo-input" type="text" :value="item" />
-    <button @click="addTodo" type="button">add</button>
+    <label for="todo-input">오늘 할 일: </label>
+    <input id="todo-input" type="text" :value="item" @input="handleInput" />
+    <button type="button">추가</button>
   </div>
 </template>
 
@@ -12,19 +12,14 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: ["item"],
   methods: {
-    addTodo() {
-      console.log("add");
+    handleInput(event: any) {
+      console.log("event", event.target.value);
+      this.$emit("input", event.target.value);
     },
   },
   // setup() {
-  //   console.log("setup");
   //   return {};
   // },
-  // mounted() {
-  //   addTodo(){
-  //     console.log('add')
-  //   }
-  // }
 });
 </script>
 

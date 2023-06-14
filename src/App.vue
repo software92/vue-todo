@@ -1,9 +1,8 @@
-<!-- snippet: vbase-3-ts -->
 <template>
   <div>
     <h1>Vue Todo with TS</h1>
+    <TodoInput :item="todoText" @input="updateTodoText"></TodoInput>
   </div>
-  <TodoInput :item="todoText" />
 </template>
 
 <script lang="ts">
@@ -12,14 +11,16 @@ import TodoInput from "./components/TodoInput.vue";
 
 export default defineComponent({
   components: { TodoInput },
-  data() {
+  setup() {
     return {
       todoText: "",
     };
   },
-  // setup() {
-  //   return {};
-  // },
+  methods: {
+    updateTodoText(value: any) {
+      this.todoText = value;
+    },
+  },
 });
 </script>
 
