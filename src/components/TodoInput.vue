@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for="todo-input"></label>
-    <input id="todo-input" type="text" />
+    <input id="todo-input" type="text" :value="item" />
     <button @click="addTodo" type="button">add</button>
   </div>
 </template>
@@ -10,6 +10,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  props: ["item"],
   methods: {
     addTodo() {
       console.log("add");
