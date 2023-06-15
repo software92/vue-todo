@@ -1,27 +1,29 @@
-<template>
-  <div>
-    <h1>Vue Todo with TS</h1>
-    <TodoInput :item="todoText" @input="updateTodoText"></TodoInput>
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import TodoInput from "./components/TodoInput.vue";
 
-export default defineComponent({
-  components: { TodoInput },
-  setup() {
-    return {
-      todoText: "",
-    };
-  },
-  methods: {
-    updateTodoText(value: any) {
-      this.todoText = value;
-    },
-  },
-});
+const todoText = ref("");
+const updateTodos = (value: any) => {
+  todoText.value = value;
+};
+const addTodo = () => {
+  const value = todoText.value;
+  if (value === "") return;
+  localStorage.setItem(value, value);
+  initTodos();
+};
+const initTodos = () => {
+  todoText.value = "";
+};
 </script>
+
+<template>
+  <form @submit="addTodo">
+    <h1>Vue Todo with TS</h1>
+    <TodoInput :value="todoText" @input="updateTodos" />
+
+    <button>add</button>
+  </form>
+</template>
 
 <style scoped></style>

@@ -1,26 +1,14 @@
-<template>
-  <div>
-    <label for="todo-input">오늘 할 일: </label>
-    <input id="todo-input" type="text" :value="item" @input="handleInput" />
-    <button type="button">추가</button>
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  props: ["item"],
-  methods: {
-    handleInput(event: any) {
-      console.log("event", event.target.value);
-      this.$emit("input", event.target.value);
-    },
-  },
-  // setup() {
-  //   return {};
-  // },
-});
+<script setup lang="ts">
+defineProps<{ value: string }>();
+const emit = defineEmits(["input"]);
+const changeValue = (e: any) => {
+  // console.log("input", e.target.value);
+  emit("input", e.target.value);
+};
 </script>
 
-<style scoped></style>
+<template>
+  <h2>자식 컴포넌트입니다!</h2>
+  <input :value="value" @input="changeValue" />
+  <!-- <input  -->
+</template>
