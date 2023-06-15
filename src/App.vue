@@ -3,7 +3,7 @@ import { ref } from "vue";
 import TodoInput from "./components/TodoInput.vue";
 
 const todoText = ref("");
-const updateTodos = (value: any) => {
+const updateTodos = (value: string) => {
   todoText.value = value;
 };
 const addTodo = () => {

@@ -1,9 +1,20 @@
 <script setup lang="ts">
-defineProps<{ value: string }>();
+interface Props {
+  value: string;
+}
+
+defineProps<Props>();
 const emit = defineEmits(["input"]);
-const changeValue = (e: any) => {
-  // console.log("input", e.target.value);
-  emit("input", e.target.value);
+const changeValue = (event: InputEvent) => {
+  // unsafe
+  const eventTarget = event.target as HTMLInputElement;
+
+  // console.log(event);
+  // if (!event.target) return;
+
+  emit("input", eventTarget.value);
+  // event.target!.value: non-null assertion type
+  // emit("input", event.target!.value);
 };
 </script>
 
