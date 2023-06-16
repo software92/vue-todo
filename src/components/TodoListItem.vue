@@ -1,26 +1,40 @@
 <script lang="ts" setup>
-const props = defineProps({ todo: { type: String }, index: { type: Number } });
-const emit = defineEmits(["delete"]);
-// import { defineComponent } from "vue";
+import { Todo } from "@/App.vue";
+import { computed } from "@vue/reactivity";
+import { PropType } from "vue";
 
-// export default defineComponent({
-//   setup() {
-//     return {};
-//   },
-// });
+const props = defineProps({
+  todo: { type: Object as PropType<Todo> },
+  index: { type: Number },
+});
+
+const emit = defineEmits(["delete", "toggle"]);
 
 const deleteTodo = () => {
   emit("delete", props.index);
 };
+const toggleTodo = () => {
+  emit("toggle", props.todo, props.index);
+};
+const isCompletedClass = computed((): string | null =>
+  props.todo?.done ? "complete" : null
+);
 </script>
 
 <template>
   <li>
-    <span>{{ todo }}</span>
+    <span class="todo" :class="isCompletedClass" @click="toggleTodo">{{
+      todo?.title
+    }}</span>
     <button @click="deleteTodo">삭제</button>
-    <!-- <p>아이템 x</p> -->
-    <!-- <slot>{{ todo }}</slot> -->
   </li>
 </template>
 
-<style scoped></style>
+<style scoped>
+.todo {
+  cursor: pointer;
+}
+.complete {
+  text-decoration: line-through;
+}
+</style>
